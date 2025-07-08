@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gmail Variasi Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    input, button, textarea {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    textarea {
+      height: 250px;
+      resize: vertical;
+    }
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>🔁 Gmail Variasi Generator</h2>
+
+<label>📧 Gmail Utama (tanpa @gmail.com):</label>
+<input type="text" id="username" placeholder="Contoh: namasaya" />
+
+<label>🏷️ Plus Tags (pisahkan dengan koma, opsional):</label>
+<input type="text" id="tags" placeholder="contoh: test, promo, kerja" />
+
+<button onclick="generate()">🔄 Generate Variasi</button>
+
+<label>📋 Hasil Variasi:</label>
+<textarea id="result" readonly></textarea>
+<button onclick="copyResult()">📥 Copy ke Clipboard</button>
+
+<script>
+function generateDotVariants(username) {
+  const variants = new Set();
+  const len = username.length;
+  const maxDots = len - 1;
+  const total = 1 << maxDots;
+
+  for (let i = 1; i < total; i++) {
+    let variant = "";
+    for (let j = 0; j < len; j++) {
+      variant += username[j];
+      if (j < len - 1 && (i >> j) & 1) variant += ".";
+    }
+    variants.add(variant);
+  }
+
+  return [...variants];
+}
+
+function generate() {
+  const username = document.getElementById("username").value.trim().toLowerCase();
+  const tags = document.getElementById("tags").value.trim().split(',').map(t => t.trim()).filter(t => t);
+  const output = [];
+
+  if (!username || /[^a-z0-9]/.test(username)) {
+    alert("Masukkan username Gmail valid (huruf dan angka saja, tanpa @gmail.com)");
+    return;
+  }
+
+  const dots = generateDotVariants(username);
+
+  dots.forEach(variant => {
+    output.push(`${variant}@gmail.com`);
+    tags.forEach(tag => {
+      output.push(`${variant}+${tag}@gmail.com`);
+    });
+  });
+
+  document.getElementById("result").value = output.join('\n');
+}
+
+function copyResult() {
+  const textarea = document.getElementById("result");
+  textarea.select();
+  document.execCommand("copy");
+  alert("✅ Disalin ke clipboard!");
+}
+</script>
+
+</body>
+</html>
