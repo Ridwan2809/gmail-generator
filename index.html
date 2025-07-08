@@ -5,21 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gmail Variasi Generator</title>
   <style>
+    :root {
+      --bg-light: #f8f9fa;
+      --bg-dark: #212529;
+      --text-light: #212529;
+      --text-dark: #f8f9fa;
+      --card-light: #ffffff;
+      --card-dark: #343a40;
+      --button-light: #007BFF;
+      --button-dark: #0d6efd;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 30px;
-      background: linear-gradient(to right, #f8f9fa, #e9ecef);
-      color: #343a40;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
     }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
     h2 {
       color: #007BFF;
       text-align: center;
     }
+
     label {
       font-weight: bold;
       margin-top: 15px;
       display: block;
     }
+
     input, button, textarea {
       padding: 12px;
       margin: 8px 0;
@@ -29,34 +49,55 @@
       border: 1px solid #ced4da;
       box-sizing: border-box;
     }
+
     button {
-      background-color: #007BFF;
+      background-color: var(--button-light);
       color: white;
       border: none;
       transition: background-color 0.3s;
+      cursor: pointer;
     }
+
+    body.dark button {
+      background-color: var(--button-dark);
+    }
+
     button:hover {
-      background-color: #0056b3;
+      opacity: 0.9;
     }
+
     textarea {
       height: 250px;
       resize: vertical;
       background-color: #f1f3f5;
     }
+
+    body.dark textarea {
+      background-color: #495057;
+      color: white;
+    }
+
     .container {
       max-width: 700px;
       margin: auto;
-      background: white;
+      background: var(--card-light);
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s;
     }
+
+    body.dark .container {
+      background: var(--card-dark);
+    }
+
     .logo {
       text-align: center;
       margin-bottom: 20px;
     }
+
     .logo img {
-      max-width: 100px;
+      max-width: 120px;
     }
   </style>
 </head>
@@ -75,6 +116,7 @@
   <input type="text" id="tags" placeholder="contoh: test, promo, kerja" />
 
   <button onclick="generate()">🔄 Generate Variasi</button>
+  <button onclick="resetInput()">🔃 Reset Input</button>
 
   <label>📋 Hasil Variasi:</label>
   <textarea id="result" readonly></textarea>
@@ -82,6 +124,15 @@
 </div>
 
 <script>
+// Mode gelap otomatis
+(function() {
+  const hour = new Date().getHours();
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (prefersDark || hour < 6 || hour > 18) {
+    document.body.classList.add('dark');
+  }
+})();
+
 function generateDotVariants(username) {
   const variants = new Set();
   const len = username.length;
@@ -112,14 +163,24 @@ function generate() {
 
   const dots = generateDotVariants(username);
 
-  dots.forEach(variant => {
+  dots.slice(0, 30).forEach(variant => {
     output.push(`${variant}@gmail.com`);
     tags.forEach(tag => {
       output.push(`${variant}+${tag}@gmail.com`);
     });
   });
 
+  if (dots.length > 30) {
+    output.push("... (dibatasi 30 variasi dot untuk performa)");
+  }
+
   document.getElementById("result").value = output.join('\n');
+}
+
+function resetInput() {
+  document.getElementById("username").value = "";
+  document.getElementById("tags").value = "";
+  document.getElementById("result").value = "";
 }
 
 function copyResult() {
