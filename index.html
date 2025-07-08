@@ -1,111 +1,158 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gmail Variasi Generator</title>
   <style>
     :root {
-      --bg-light: #f8f9fa;
-      --bg-dark: #212529;
-      --text-light: #212529;
-      --text-dark: #f8f9fa;
+      --bg-dark: #0f111a;
+      --bg-light: #f4f7ff;
+      --card-dark: #1a1d2e;
       --card-light: #ffffff;
-      --card-dark: #343a40;
-      --button-light: #007BFF;
-      --button-dark: #0d6efd;
+      --text-dark: #e2e6f3;
+      --text-light: #111;
+      --input-dark: #2a2f45;
+      --input-light: #e9ecef;
+      --gradient: linear-gradient(to right, #007bff, #6f42c1);
     }
 
     body {
+      margin: 0;
+      padding: 40px 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 30px;
-      background: var(--bg-light);
-      color: var(--text-light);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    body.dark {
       background: var(--bg-dark);
       color: var(--text-dark);
+      transition: all 0.3s ease;
     }
 
-    h2 {
-      color: #007BFF;
-      text-align: center;
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
-    label {
-      font-weight: bold;
-      margin-top: 15px;
-      display: block;
-    }
-
-    input, button, textarea {
-      padding: 12px;
-      margin: 8px 0;
-      width: 100%;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ced4da;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: var(--button-light);
-      color: white;
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: none;
       border: none;
-      transition: background-color 0.3s;
+      font-size: 22px;
       cursor: pointer;
-    }
-
-    body.dark button {
-      background-color: var(--button-dark);
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    textarea {
-      height: 250px;
-      resize: vertical;
-      background-color: #f1f3f5;
-    }
-
-    body.dark textarea {
-      background-color: #495057;
-      color: white;
+      color: inherit;
+      z-index: 1000;
+      transition: transform 0.2s;
     }
 
     .container {
       max-width: 700px;
       margin: auto;
-      background: var(--card-light);
+      background: var(--card-dark);
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
       transition: background 0.3s;
     }
 
-    body.dark .container {
-      background: var(--card-dark);
+    body.light .container {
+      background: var(--card-light);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
     }
 
     .logo {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .logo img {
-      max-width: 120px;
+      max-width: 130px;
+      border-radius: 12px;
+    }
+
+    h2 {
+      text-align: center;
+      background: linear-gradient(to right, #0ff, #8a2be2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 10px;
+      border: none;
+      background: var(--input-dark);
+      color: #fff;
+      font-size: 16px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light input, body.light textarea {
+      background: var(--input-light);
+      color: #000;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 220px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background: var(--gradient);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.1s ease, opacity 0.3s;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    ::placeholder {
+      color: #aab2d5;
+    }
+
+    body.light ::placeholder {
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
     }
   </style>
 </head>
 <body>
 
+<!-- Tombol Toggle Tema -->
+<button class="theme-toggle" onclick="toggleTheme()" title="Ganti tema">
+  🌙
+</button>
+
 <div class="container">
   <div class="logo">
-    <img src="WN.png" alt="WN Logo">
+    <img src="WN.png" alt="WN Logo" />
   </div>
   <h2>🔁 Gmail Variasi Generator</h2>
 
@@ -124,71 +171,76 @@
 </div>
 
 <script>
-// Mode gelap otomatis
-(function() {
-  const hour = new Date().getHours();
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (prefersDark || hour < 6 || hour > 18) {
-    document.body.classList.add('dark');
+  // Toggle tema terang/gelap
+  function toggleTheme() {
+    document.body.classList.toggle("light");
+    const isLight = document.body.classList.contains("light");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    document.querySelector(".theme-toggle").innerHTML = isLight ? "🌞" : "🌙";
   }
-})();
 
-function generateDotVariants(username) {
-  const variants = new Set();
-  const len = username.length;
-  const maxDots = len - 1;
-  const total = 1 << maxDots;
-
-  for (let i = 1; i < total; i++) {
-    let variant = "";
-    for (let j = 0; j < len; j++) {
-      variant += username[j];
-      if (j < len - 1 && (i >> j) & 1) variant += ".";
+  // Load tema dari localStorage saat pertama kali
+  (function () {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      document.body.classList.add("light");
+      document.querySelector(".theme-toggle").innerHTML = "🌞";
     }
-    variants.add(variant);
+  })();
+
+  function generateDotVariants(username) {
+    const variants = new Set();
+    const len = username.length;
+    const total = 1 << (len - 1);
+    for (let i = 1; i < total; i++) {
+      let variant = "";
+      for (let j = 0; j < len; j++) {
+        variant += username[j];
+        if (j < len - 1 && (i >> j) & 1) variant += ".";
+      }
+      variants.add(variant);
+    }
+    return [...variants];
   }
 
-  return [...variants];
-}
+  function generate() {
+    const username = document.getElementById("username").value.trim().toLowerCase();
+    const tags = document.getElementById("tags").value.trim().split(',').map(t => t.trim()).filter(Boolean);
+    const output = [];
 
-function generate() {
-  const username = document.getElementById("username").value.trim().toLowerCase();
-  const tags = document.getElementById("tags").value.trim().split(',').map(t => t.trim()).filter(t => t);
-  const output = [];
+    if (!username || /[^a-z0-9]/.test(username)) {
+      alert("Masukkan username Gmail valid (huruf dan angka saja, tanpa @gmail.com)");
+      return;
+    }
 
-  if (!username || /[^a-z0-9]/.test(username)) {
-    alert("Masukkan username Gmail valid (huruf dan angka saja, tanpa @gmail.com)");
-    return;
-  }
+    const dots = generateDotVariants(username);
 
-  const dots = generateDotVariants(username);
-
-  dots.slice(0, 30).forEach(variant => {
-    output.push(`${variant}@gmail.com`);
-    tags.forEach(tag => {
-      output.push(`${variant}+${tag}@gmail.com`);
+    dots.slice(0, 30).forEach(variant => {
+      output.push(`${variant}@gmail.com`);
+      tags.forEach(tag => {
+        output.push(`${variant}+${tag}@gmail.com`);
+      });
     });
-  });
 
-  if (dots.length > 30) {
-    output.push("... (dibatasi 30 variasi dot untuk performa)");
+    if (dots.length > 30) {
+      output.push("... (dibatasi 30 variasi dot untuk performa)");
+    }
+
+    document.getElementById("result").value = output.join('\n');
   }
 
-  document.getElementById("result").value = output.join('\n');
-}
+  function resetInput() {
+    document.getElementById("username").value = "";
+    document.getElementById("tags").value = "";
+    document.getElementById("result").value = "";
+  }
 
-function resetInput() {
-  document.getElementById("username").value = "";
-  document.getElementById("tags").value = "";
-  document.getElementById("result").value = "";
-}
-
-function copyResult() {
-  const textarea = document.getElementById("result");
-  textarea.select();
-  document.execCommand("copy");
-  alert("✅ Disalin ke clipboard!");
-}
+  function copyResult() {
+    const textarea = document.getElementById("result");
+    textarea.select();
+    document.execCommand("copy");
+    alert("✅ Disalin ke clipboard!");
+  }
 </script>
 
 </body>
