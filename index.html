@@ -14,7 +14,8 @@
       --text-light: #111;
       --input-dark: #2a2f45;
       --input-light: #e9ecef;
-      --gradient: linear-gradient(to right, #007bff, #6f42c1);
+      --grad-start: #00f0ff;
+      --grad-end: #9f00ff;
     }
 
     body {
@@ -31,26 +32,13 @@
       color: var(--text-light);
     }
 
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: inherit;
-      z-index: 1000;
-      transition: transform 0.2s;
-    }
-
     .container {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
       background: var(--card-dark);
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
       transition: background 0.3s;
     }
 
@@ -61,21 +49,23 @@
 
     .logo {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .logo img {
-      max-width: 130px;
+      max-width: 120px;
       border-radius: 12px;
+      filter: drop-shadow(0 0 10px rgba(0,255,255,0.4));
     }
 
     h2 {
       text-align: center;
-      background: linear-gradient(to right, #0ff, #8a2be2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       font-size: 1.8em;
       margin-bottom: 20px;
+      background: linear-gradient(to right, var(--grad-start), var(--grad-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(0,255,255,0.3);
     }
 
     label {
@@ -113,19 +103,21 @@
       font-size: 16px;
       font-weight: bold;
       color: #fff;
-      background: var(--gradient);
+      background: linear-gradient(to right, var(--grad-start), var(--grad-end));
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.1s ease, opacity 0.3s;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+    }
+
+    button:hover {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      transform: scale(1.02);
     }
 
     button:active {
       transform: scale(0.97);
-    }
-
-    button:hover {
-      opacity: 0.92;
     }
 
     ::placeholder {
@@ -133,7 +125,19 @@
     }
 
     body.light ::placeholder {
-      color: #888;
+      color: #666;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: inherit;
+      z-index: 1000;
     }
 
     @media (max-width: 600px) {
@@ -145,10 +149,8 @@
 </head>
 <body>
 
-<!-- Tombol Toggle Tema -->
-<button class="theme-toggle" onclick="toggleTheme()" title="Ganti tema">
-  🌙
-</button>
+<!-- Tombol tema -->
+<button class="theme-toggle" onclick="toggleTheme()" title="Ganti tema">🌙</button>
 
 <div class="container">
   <div class="logo">
@@ -171,7 +173,7 @@
 </div>
 
 <script>
-  // Toggle tema terang/gelap
+  // Toggle Tema
   function toggleTheme() {
     document.body.classList.toggle("light");
     const isLight = document.body.classList.contains("light");
@@ -179,10 +181,10 @@
     document.querySelector(".theme-toggle").innerHTML = isLight ? "🌞" : "🌙";
   }
 
-  // Load tema dari localStorage saat pertama kali
+  // Load Tema
   (function () {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light") {
       document.body.classList.add("light");
       document.querySelector(".theme-toggle").innerHTML = "🌞";
     }
@@ -214,12 +216,9 @@
     }
 
     const dots = generateDotVariants(username);
-
     dots.slice(0, 30).forEach(variant => {
       output.push(`${variant}@gmail.com`);
-      tags.forEach(tag => {
-        output.push(`${variant}+${tag}@gmail.com`);
-      });
+      tags.forEach(tag => output.push(`${variant}+${tag}@gmail.com`));
     });
 
     if (dots.length > 30) {
