@@ -6,41 +6,80 @@
   <title>Gmail Variasi Generator</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 30px;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      color: #343a40;
+    }
+    h2 {
+      color: #007BFF;
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      display: block;
     }
     input, button, textarea {
-      padding: 10px;
-      margin: 5px 0;
+      padding: 12px;
+      margin: 8px 0;
       width: 100%;
       font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
       box-sizing: border-box;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
     }
     textarea {
       height: 250px;
       resize: vertical;
+      background-color: #f1f3f5;
     }
-    button {
-      cursor: pointer;
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      max-width: 100px;
     }
   </style>
 </head>
 <body>
 
-<h2>🔁 Gmail Variasi Generator</h2>
+<div class="container">
+  <div class="logo">
+    <img src="https://ipkzone.my.id/assets/logo-wns.png" alt="WNS Logo">
+  </div>
+  <h2>🔁 Gmail Variasi Generator</h2>
 
-<label>📧 Gmail Utama (tanpa @gmail.com):</label>
-<input type="text" id="username" placeholder="Contoh: namasaya" />
+  <label>📧 Gmail Utama (tanpa @gmail.com):</label>
+  <input type="text" id="username" placeholder="Contoh: namasaya" />
 
-<label>🏷️ Plus Tags (pisahkan dengan koma, opsional):</label>
-<input type="text" id="tags" placeholder="contoh: test, promo, kerja" />
+  <label>🏷️ Plus Tags (pisahkan dengan koma, opsional):</label>
+  <input type="text" id="tags" placeholder="contoh: test, promo, kerja" />
 
-<button onclick="generate()">🔄 Generate Variasi</button>
+  <button onclick="generate()">🔄 Generate Variasi</button>
 
-<label>📋 Hasil Variasi:</label>
-<textarea id="result" readonly></textarea>
-<button onclick="copyResult()">📥 Copy ke Clipboard</button>
+  <label>📋 Hasil Variasi:</label>
+  <textarea id="result" readonly></textarea>
+  <button onclick="copyResult()">📥 Copy ke Clipboard</button>
+</div>
 
 <script>
 function generateDotVariants(username) {
