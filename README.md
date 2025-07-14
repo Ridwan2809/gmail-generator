@@ -40,7 +40,9 @@ node index.js
 node index.js
 ```
 ▪️Masukkan email utama, contoh:```yourname@gmail.com```
+
 ▪️Pilih jumlah variasi alamat yang ingin dihasilkan
+
 ▪️Hasil akan disimpan di file ```output.txt```
 
 ---
