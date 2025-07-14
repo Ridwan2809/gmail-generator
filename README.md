@@ -59,5 +59,7 @@ yourname+abc123@gmail.com
 
 ---
 
-📄 Lisensi
-Repositori ini dilisensikan di bawah MIT License.
+## 📄 Lisensi
+
+Repositori ini dilisensikan di bawah [MIT License](LICENSE).
+
