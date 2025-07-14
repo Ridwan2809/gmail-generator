@@ -4,7 +4,7 @@ Script sederhana untuk menghasilkan kombinasi alamat Gmail acak dengan berbagai 
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/Ridwan2809/gmail-generator?style=social)](https://github.com/Ridwan2809/gmail-generator/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Ridwan2809/gmail-generator?style=social)](https://github.com/Ridwan2809/gmail-generator/network)
-[![License](https://img.shields.io/github/license/Ridwan2809/gmail-generator)](LICENSE)
+[![License: MIT](https://img.shields.io/github/license/Ridwan2809/gmail-generator)](LICENSE)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Ridwan2809/gmail-generator)](https://github.com/Ridwan2809/gmail-generator/commits/main)
 
 ---
