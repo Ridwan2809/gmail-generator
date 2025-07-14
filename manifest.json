@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail Variasi Generator",
+  "description": "Generate variasi Gmail dengan dot dan tag otomatis.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "wn_icon_16.png",
+      "48": "wn_icon_48.png"
+    }
+  },
+  "icons": {
+    "16": "wn_icon_16.png",
+    "48": "wn_icon_48.png",
+    "128": "wn_icon_128.png"
+  },
+  "permissions": [
+    "clipboardWrite"
+  ]
+}

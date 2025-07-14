@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gmail Variasi</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="WN.png" alt="WN Logo" style="max-width: 80px; height: auto; display: block; margin: 0 auto 20px; border-radius: 12px;" />
+    </div>
+    <h2><span style="background: linear-gradient(to right, #00f0ff, #9f00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔁 Gmail Variasi Generator</span></h2>
+
+    <label for="username">📧 Gmail Utama (tanpa @gmail.com):</label>
+    <input type="text" id="username" placeholder="Contoh: namasaya" aria-label="Nama Pengguna Gmail" />
+
+    <label for="tags">🏷️ Plus Tags (pisahkan dengan koma, opsional):</label>
+    <input type="text" id="tags" placeholder="contoh: test, promo, kerja" aria-label="Plus Tags" />
+
+    <button id="generateBtn">🔄 Generate Variasi</button>
+    <button id="resetBtn">🔃 Reset Input</button>
+
+    <label for="result">📋 Hasil Variasi:</label>
+    <textarea id="result" readonly aria-label="Hasil Variasi Gmail"></textarea>
+    <button id="copyBtn">📥 Copy ke Clipboard</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
